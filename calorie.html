@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-storage.js"></script>
+    <link rel="stylesheet" href="calorie.css">
+    <title>Calorie Calculator</title>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top navbar-dark" style="background-color: black;">
+        <a class="navbar-brand text-white px-2" style="font-weight: bold;" href="index.html">
+            <img src="logo2.png" width="30" height="30" alt="" loading="lazy">Calorie Calculator
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon text-white"></span>
+    </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active pr-5 py-1">
+                    <button type="button" class="btn btn-outline-light" id="checkcalorieButton">Check Calorie</button>
+                </li>
+                <li class="nav-item pr-5 py-1">
+                    <button type="button" class="btn btn-outline-light" id="about">Dashboard</button>
+                </li>
+                <li class="nav-item py-1">
+                    <button class="btn btn-primary" type="button" id="login">Login</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!----------body -->
+    <section class="bg-dark">
+        <div class="container px-5 py-3 pb-5" id="body">
+            <h2 class="display-5 py-5" style="font-family: 'Montserrat', sans-serif;"></h2>
+            <div id="myCarousel" class="carousel slide" data-ride="carousel" data-aos="flip-left" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                <div class="carousel-inner row w-75 mx-auto">
+                    <div class="carousel-item col-md-12 active">
+                        <div class="newcard">
+                            <img src="1j.jpg" class="card-img-top px-5 pt-3" alt="...">
+                            <div class="card-body">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item col-md-12">
+                        <div class="newcard">
+                            <img src="2j.jpg" class="card-img-top px-5 pt-3" alt="...">
+                            <div class="card-body">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item col-md-12">
+                        <div class="newcard">
+                            <img src="3j.jpg" class="card-img-top px-5 pt-3" alt="...">
+                            <div class="card-body">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item col-md-12">
+                        <div class="newcard">
+                            <img src="4j.jpg" class="card-img-top px-5 pt-3" alt="...">
+                            <div class="card-body">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item col-md-12">
+                        <div class="newcard">
+                            <img src="5j.jpg" class="card-img-top px-5 pt-3" alt="...">
+                            <div class="card-body">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- check calorie  ------------------------------------------------------->
+    <div class="container">
+        <div class="bg-light px-5" id="checkcalorie">
+            <div class="row pt-2">
+                <div class="col-md-11 col-10"></div>
+                <span class="material-icons" type="button" id="closecheck">
+                    close
+                    </span>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h3 class="pl-1 fontHeading">Check</h3>
+                    <hr class="w-75 ml-0">
+                </div>
+                <div class="alert bg-light form-inline w-50 col-md-3 pb-5" style="font-size: 20px;" role="alert">
+                    <div style="font-weight: bold;" class="pr-3">Date:</div>
+                    <div id="date"></div>
+                </div>
+            </div>
+            <div class="form-group row pt-2">
+                <label for="input" style="font-weight: bolder;" class="col-sm-2 col-form-label">Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="name">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="input" style="font-weight: bold;">Age</label>
+                    <input type="text" class="form-control" id="age">
+                </div>
+                <div class="col-md-4"></div>
+                <div class="form-group col-md-4">
+                    <label for="text" style="font-weight: bold;">Gender</label>
+                    <select class="form-control" id="gender">
+                        <option selected></option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="input" style="font-weight: bold;">Weight</label>
+                    <input type="text" class="form-control" id="weight">
+                    <label for="input">in kg</label>
+                </div>
+                <div class="col-md-4"></div>
+                <div class="form-group col-md-4">
+                    <label for="text" style="font-weight: bold;">Height</label>
+                    <input type="text" class="form-control" id="height">
+                    <label for="text">in centimeters</label>
+                </div>
+            </div>
+            <div class="pt-2 pb-5">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" id="calculate">
+                    Calculate
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">BMR</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" id="results">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Dashboard  ------------------------------------------------------->
+    <section class="bg-img">
+        <div class="container py-5 " id="dash">
+            <span class="material-icons margin" type="button" id="home">
+                home
+                </span></button>
+            <div class="row pt-2 px-3">
+                <div class="col-md-12" style="font-weight: bold; font-size: medium;">
+                    The calorie calculator, also called the TDEE calculator, can help you in determining how many calories should you eat a day - or what your starting point is if you want to gain or lose weight. In this article, you will find not only the formulas our calorie
+                    counter uses, but also what kinds of food to eat to cut down your weight in a responsible way.
+                </div>
+            </div>
+            <div class="container py-5">
+                <div class="row pt-2">
+                    <div style="font-weight: bold; font-size: 25px; font-style: normal;" class="col-md-8">
+                        How many calories should we eat a day?
+                    </div>
+                </div>
+                <div class="row pt-2 px-5">
+                    <div class="col-md-12">
+                    </div>
+                </div>
+                The recommended calorie intake, or TDEE (Total Daily Energy Expenditure), depends on many factors. They are quite easy to measure, and you (hopefully) already know some: your age, height, weight, and sex. There are others, like the level of your physical
+                activity, which are more qualitative than quantitative, but it's still possible to measure and classify them. Other ones, like your metabolism or overall health, are very difficult to estimate. That's why, even though our calorie calculator
+                takes into account most factors that influence the number of calories you need every day, it may not give results that are 100% accurate. Consider it more of a guideline than a rigorous directive.
+                <div class="row pt-2">
+                    <div class="col-md-12">
+                        For example, a 40-year-old man who has a physical job (equivalent to exercising six days a week), is the average American height (5 ft 9 in) and weight (194.7 lbs) should ingest 3567 calories a day. On the other hand, his daughter, an average 18-year-old
+                        girl (5 ft 4 in, 117 lbs) who exercises once a week only, needs only 1814 calories a day - over a thousand calories less than her father.
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div style="font-weight: bolder; font-size:25px;" class="col-md-12">
+                        What are calories, exactly?
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-md-12">
+                        Calories are measures of energy. 1 calorie is equivalent to about 4.18 joules. In nutrition, we actually deal with kilocalories (kcal), where 1 kcal is equal to a thousand of the "small" calories. As you could expect, 1 kcal = 4.18 kJ. (This article uses
+                        the term "calories" to describe kilocalories, like probably every other healthy diet article on the Internet).
+                    </div>
+                </div>
+            </div>
+            <div class="container py-5">
+                <div class="row pt-2">
+                    <div style="font-weight: bold; font-size: 25px;" class="col-md-8">
+                        What to eat to lose weight?
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-md-12">
+                        Calories are not the only thing we get from food. Eating 1000 calories in popcorn is definitely not the same as eating 1000 calories in fruit and vegetables. We also need a proper amount of macronutrients - carbohydrates, proteins, vitamins, iron, and
+                        others. If you want to lose weight, the best thing you can do is burn calories by exercising. You can also reduce the calorie intake, but you must be very careful and double-check whether you won't deprive your body of important
+                        substances.
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-md-12">
+                        The best idea is always to consult a specialist. A good plan is to find a dietitian, who will create a diet plan perfectly suited to your needs. In no case should you blindly follow any diet plan taken from an anonymous source. The list below provides
+                        some rules that can become an inspiration for your diet. They are taken from the Dietary Guidelines for Americans. If you are interested in the topic of healthy nutrition, you should give them a look - this document is full of
+                        valuable information.
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-md-12">
+                        All - or almost all - nutritional needs should be met from foods. In some cases, you may use supplements, but never settle for substituting your food with them.
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-md-12">
+                        Consume less than 10 percent of calories per day from added sugars. Consume less than 10 percentof calories per day from saturated fats - use oils instead. They provide essential fatty acids and vitamin E.
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-md-12">
+                        Consume less than 2,300 milligrams (mg) per day of sodium. Its primary source is salt.
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-md-12">
+                        If you drink alcohol, don't exceed one drink per day for women and two drinks per day for men. Drink only if you are of legal drinking age.
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-md-12">
+                        Eat a lot of vegetables - don't leave out any of their subgroups. They are a source of fiber, potassium, vitamins A, C, K, E, B6, magnesium, iron and other nutrients.
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-md-12">
+                        Consume a lot of fruits, especially whole fruits - they provide, among many others, dietary fiber, potassium, and vitamin C.
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-md-12">
+                        Grains, at least half of which are whole grains, are also good for you.
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-md-12">
+                        Consume fat-free or low-fat dairy, including milk, yogurt, cheese, and/or fortified soy beverages. They are your primary source of calcium.
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-md-12">
+                        You should also consume a variety of protein foods, including seafood, lean meats and poultry, eggs, legumes (beans and peas), nuts, seeds, and soy products. Meats, poultry, and seafood provide heme iron, which is more bioavailable than the non-heme iron
+                        found in plant sources.
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-md-12">
+                        It's always better to eat regular meals - try to plan them in advance and limit snacks to a minimum.
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-md-12">
+                        Remember that there are multiple ways to plan out your diet. A balanced vegetarian diet can be as nutritional for an adult as a meat-based diet.
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-2" style="font-weight: bold; font-size: 25px;">
+                <div class="col-md-12">
+                    Benefits of a balanced diet
+                </div>
+            </div>
+            <div class="row pt-2">
+                <div class="col-md-12">
+                    Opting for a balanced, adequate and varied diet is an important step towards a happy and healthy lifestyle.
+                </div>
+            </div>
+            <div class="row pt-2">
+                <div class="col-md-12">
+                    Vitamins and minerals in the diet are vital to boost immunity and healthy development.A healthy diet can protect the human body against certain types of diseases, in particular noncommunicable diseases such as obesity, diabetes, cardiovascular diseases,
+                    some types of cancer and skeletal conditions.
+                </div>
+            </div>
+            <div class="row pt-2">
+                <div class="col-md-12">
+                    Healthy diets can also contribute to an adequate body weight. Healthy eating is a good opportunity to enrich life by experimenting with different foods from different cultures, origins and with different ways to prepare food.
+                </div>
+            </div>
+            <div class="row pt-2">
+                <div class="col-md-12">
+                    The benefits of eating a wide variety of foods are also emotional, as variety and colour are important ingredients of a balance diet.
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-------------------- login---------->
+    <div id="loginpage" class="container">
+        <div class="row pt-2">
+            <div class="col-md-11"></div>
+            <div class="col-md-1">
+                <span class="material-icons" type="button" id="close">
+                close
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <h3 class="pl-1 fontHeading">Login</h3>
+                <hr class="w-75 ml-0">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password">
+        </div>
+        <button class="btn btn-primary" id="signin">Sign in</button>
+        <button class=" sum btn btn-primary" id="create">Create</button>
+    </div>
+
+
+    <div id="user_log" style="align-content: center;" class="user">
+        Welcome User<br><br>
+        <button style="align-content: center;" class=" sum btn btn-primary" id="logout">Logout</button>
+    </div>
+
+
+    <script src="config.js"></script>
+    <script src="cal.js"></script>
+    <script src="login.js"></script>
+
+
+</body>
+
+</html>
